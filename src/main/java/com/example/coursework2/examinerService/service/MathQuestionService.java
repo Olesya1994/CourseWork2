@@ -2,21 +2,19 @@ package com.example.coursework2.examinerService.service;
 
 import com.example.coursework2.examinerService.demain.Question;
 import com.example.coursework2.examinerService.repository.QuestionRepository;
-import com.example.coursework2.examinerService.service.QuestionService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
-@Qualifier("javaService")
+@Qualifier("mathService")
 @Service
-public class JavaQuestionService implements QuestionService {
+public class MathQuestionService implements QuestionService {
     private final QuestionRepository repository;
     private final Random random = new Random();
 
-    public JavaQuestionService(@Qualifier("javaRepository") QuestionRepository repository) {
+    public MathQuestionService(@Qualifier("mathRepository") QuestionRepository repository) {
         this.repository = repository;
     }
-
 
     @Override
     public Question add(String questionText, String answer) {
@@ -55,5 +53,5 @@ public class JavaQuestionService implements QuestionService {
         }
         return null;
     }
-
 }
+
