@@ -6,32 +6,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Collection;
 
 @RestController
-@RequestMapping("/exam/java")
-public class JavaController {
+@RequestMapping("exam/math")
+public class MathQuestionController {
+    private final QuestionService mathService;
 
-    private final QuestionService javaService;
-
-    public JavaController(@Qualifier("javaService") QuestionService javaService) {
-        this.javaService = javaService;
+    public MathQuestionController(@Qualifier("mathService") QuestionService mathService) {
+        this.mathService = mathService;
     }
 
     @GetMapping("/add")
     public Question add(@RequestParam String question, @RequestParam String answer) {
-        return javaService.add(question, answer);
+        return mathService.add(question, answer);
     }
 
     @GetMapping("/remove")
     public Question remove(@RequestParam String question, @RequestParam String answer) {
-        return javaService.remove(question, answer);
+        return mathService.remove(question, answer);
     }
 
     @GetMapping()
     public Collection<Question> getAll() {
-        return javaService.getAll();
+        return mathService.getAll();
     }
-
 }
