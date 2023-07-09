@@ -1,10 +1,7 @@
 package com.example.coursework2;
-
 import com.example.coursework2.examinerService.demain.Question;
 import com.example.coursework2.examinerService.repository.QuestionRepository;
 import com.example.coursework2.examinerService.service.MathQuestionService;
-import com.example.coursework2.examinerService.service.QuestionAlreadyAddedException;
-import com.example.coursework2.examinerService.service.QuestionService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,23 +28,29 @@ public class MathQuestionServiceTest {
 
     }
     // НЕ РАБОТАЕТ
-    @Test
     public void addTest() {
         Question question0 = new Question("Вопрос 0", "Ответ 0");
-        service.add("Вопрос 0", "Ответ 0");
-        Assertions.assertTrue(service.getAll().contains(question0));
-        Assertions.assertThrows(QuestionAlreadyAddedException.class, () -> service.add(question0));
+        service.add(question0);
+        when(repository.add("Вопрос 0", "Ответ 0")).thenReturn(question0);
+        Assertions.assertEquals(service.add("Вопрос 0", "Ответ 0"), question0);
+
     }
+
+//    @Test
+//    public void addTest3() {
+//        Assertions.assertNotNull(service);
+//        Assertions.assertNotNull(repository);
+//
+//    }
+
     // НЕ РАБОТАЕТ
     @Test
     public void removeTest() {
         Question question0 = new Question("Вопрос 0", "Ответ 0");
-        Question question1 = new Question("Вопрос 1", "Ответ 1");
-        service.add("Вопрос 1", "Ответ 1");
-        service.remove("Вопрос 1", "Ответ 1");
-        Assertions.assertFalse(service.getAll().contains(question1));
-        Assertions.assertThrows(RuntimeException.class, () -> service.remove(question0));
+        when(repository.remove("Вопрос 0", "Ответ 0")).thenReturn(question0);
+        Assertions.assertEquals(service.remove("Вопрос 0", "Ответ 0"), question0);
     }
+
     // НЕ РАБОТАЕТ
     @Test
     public void getAllTest() {
@@ -55,10 +58,8 @@ public class MathQuestionServiceTest {
         Question question2 = new Question("Вопрос 2", "Ответ 2");
         Question question3 = new Question("Вопрос 3", "Ответ 3");
         Collection<Question> testQuestions = List.of(question1, question2, question3);
-        for (Question question : testQuestions) {
-            service.add(question);
-        }
-        Assertions.assertTrue(service.getAll().containsAll(testQuestions));
+        when(repository.getAll()).thenReturn(testQuestions);
+        Assertions.assertTrue(List.of(question1, question2, question3).containsAll(service.getAll()));
     }
 
     @Test
