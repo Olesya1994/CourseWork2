@@ -34,6 +34,12 @@ public class JavaQuestionRepositoryTest {
         Assertions.assertTrue(javaRepositoryTest.getAll().contains(question0));
         Assertions.assertThrows(QuestionAlreadyAddedException.class, () -> javaRepositoryTest.add(question0));
     }
+    @Test
+    public void addTest2() {
+        Question question0 = new Question("Вопрос 0", "Ответ 0");
+        Assertions.assertEquals(javaRepositoryTest.add("Вопрос 0", "Ответ 0"), question0);
+
+    }
 
     @Test
     public void removeTest() {

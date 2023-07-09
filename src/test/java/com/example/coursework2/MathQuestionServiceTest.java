@@ -30,7 +30,7 @@ public class MathQuestionServiceTest {
         MockitoAnnotations.openMocks(this);
 
     }
-
+    // НЕ РАБОТАЕТ
     @Test
     public void addTest() {
         Question question0 = new Question("Вопрос 0", "Ответ 0");
@@ -38,7 +38,7 @@ public class MathQuestionServiceTest {
         Assertions.assertTrue(service.getAll().contains(question0));
         Assertions.assertThrows(QuestionAlreadyAddedException.class, () -> service.add(question0));
     }
-
+    // НЕ РАБОТАЕТ
     @Test
     public void removeTest() {
         Question question0 = new Question("Вопрос 0", "Ответ 0");
@@ -48,7 +48,7 @@ public class MathQuestionServiceTest {
         Assertions.assertFalse(service.getAll().contains(question1));
         Assertions.assertThrows(RuntimeException.class, () -> service.remove(question0));
     }
-
+    // НЕ РАБОТАЕТ
     @Test
     public void getAllTest() {
         Question question1 = new Question("Вопрос 1", "Ответ 1");

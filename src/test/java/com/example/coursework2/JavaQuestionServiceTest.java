@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 public class JavaQuestionServiceTest {
 
     @Mock
-JavaQuestionRepository repository;
+    JavaQuestionRepository repository;
     @InjectMocks
     JavaQuestionService service;
 
@@ -34,6 +34,7 @@ JavaQuestionRepository repository;
 
     }
 
+    // НЕ РАБОТАЕТ
     @Test
     public void addTest() {
         Question question0 = new Question("Вопрос 0", "Ответ 0");
@@ -42,6 +43,14 @@ JavaQuestionRepository repository;
         Assertions.assertThrows(QuestionAlreadyAddedException.class, () -> service.add(question0));
     }
 
+    @Test
+    public void addTest1() {
+        Question question0 = new Question("Вопрос 0", "Ответ 0");
+        Assertions.assertEquals(service.add("Вопрос 0", "Ответ 0"), question0);
+
+    }
+
+    // НЕ РАБОТАЕТ
     @Test
     public void removeTest() {
         Question question0 = new Question("Вопрос 0", "Ответ 0");
@@ -52,6 +61,7 @@ JavaQuestionRepository repository;
         Assertions.assertThrows(RuntimeException.class, () -> service.remove(question0));
     }
 
+    // НЕ РАБОТАЕТ
     @Test
     public void getAllTest() {
         Question question1 = new Question("Вопрос 1", "Ответ 1");
@@ -74,10 +84,10 @@ JavaQuestionRepository repository;
         Question question = service.getRandomQuestion();
         Assertions.assertTrue(service.getAll().contains(question));
         Set<Question> questions = new HashSet<>();
-        while (questions.size()<service.getAll().size()){
+        while (questions.size() < service.getAll().size()) {
             questions.add(service.getRandomQuestion());
         }
         Assertions.assertTrue(questions.containsAll(service.getAll()));
-            }
+    }
 
 }
