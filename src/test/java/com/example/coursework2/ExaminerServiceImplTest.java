@@ -34,7 +34,6 @@ public class ExaminerServiceImplTest {
         Question question3 = new Question("1+1", "=2");
         Collection<Question> testJavaQuestions = List.of(question1, question2, question3);
         Collection<Question> testMathQuestions = List.of(question3);
-
         when(javaService.getAll()).thenReturn(testJavaQuestions);
         when(mathService.getAll()).thenReturn(testMathQuestions);
 
@@ -42,7 +41,6 @@ public class ExaminerServiceImplTest {
 
     @Test
     public void getRandomQuestionTest() {
-
         Assertions.assertThrows(TooManyRandomQuestionException.class, () -> examinerService.getQuestion(10));
         Assertions.assertTrue(examinerService.getQuestion(3).containsAll(randomQuestions));
     }
