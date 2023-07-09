@@ -27,6 +27,7 @@ public class JavaQuestionServiceTest {
 JavaQuestionRepository repository;
     @InjectMocks
     JavaQuestionService service;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);

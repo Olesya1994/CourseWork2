@@ -1,47 +1,50 @@
 package com.example.coursework2;
 
 import com.example.coursework2.examinerService.demain.Question;
-import com.example.coursework2.examinerService.service.ExaminerService;
+import com.example.coursework2.examinerService.service.ExaminerServiceImpl;
 import com.example.coursework2.examinerService.service.QuestionService;
 import com.example.coursework2.examinerService.service.TooManyRandomQuestionException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+
+import static org.mockito.Mockito.when;
 
 @Service
-public class ExaminerServiceImplTest implements ExaminerService {
-    private final QuestionService javaService;
-    private final QuestionService mathService;
+public class ExaminerServiceImplTest {
+    @InjectMocks
+    ExaminerServiceImpl examinerService;
+    @Mock
+    QuestionService javaService;
+    @Mock
+    QuestionService mathService;
     private final Set<Question> randomQuestions = new HashSet<>();
 
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        Question question1 = new Question("Вопрос 1", "Ответ 1");
+        Question question2 = new Question("Вопрос 2", "Ответ 2");
+        Question question3 = new Question("1+1", "=2");
+        Collection<Question> testJavaQuestions = List.of(question1, question2, question3);
+        Collection<Question> testMathQuestions = List.of( question3);
 
-    public ExaminerServiceImplTest(@Qualifier("javaService") QuestionService javaService, @Qualifier("mathService") QuestionService mathService) {
-        this.javaService = javaService;
-        this.mathService = mathService;
+        when(javaService.getAll()).thenReturn( testJavaQuestions);
+        when(mathService.getAll()).thenReturn( testMathQuestions);
 
     }
 
-    @Override
-    public Collection<Question> getQuestion(int amount) {
-        randomQuestions.addAll(javaService.getAll());
-        randomQuestions.addAll(mathService.getAll());
-        if (randomQuestions.size() < amount) {
-            throw new TooManyRandomQuestionException();
-        }
-        if (randomQuestions.size() == amount) {
-            return Collections.unmodifiableSet(randomQuestions);
-        }
-        while (randomQuestions.size() < amount) {
-            Question question = javaService.getRandomQuestion();
-            if (randomQuestions.contains(question)) {
-                randomQuestions.remove(question);
-            }
-            randomQuestions.add(question);
-        }
-        return Collections.unmodifiableSet(randomQuestions);
+    @Test
+    public void getRandomQuestionTest() {
+
+        Assertions.assertThrows(TooManyRandomQuestionException.class, () -> examinerService.getQuestion(10));
+        Assertions.assertTrue(examinerService.getQuestion(3).containsAll(randomQuestions));
     }
 }
