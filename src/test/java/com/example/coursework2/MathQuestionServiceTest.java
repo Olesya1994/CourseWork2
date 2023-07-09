@@ -1,4 +1,5 @@
 package com.example.coursework2;
+
 import com.example.coursework2.examinerService.demain.Question;
 import com.example.coursework2.examinerService.repository.QuestionRepository;
 import com.example.coursework2.examinerService.service.MathQuestionService;
@@ -22,11 +23,13 @@ public class MathQuestionServiceTest {
     QuestionRepository repository;
     @InjectMocks
     MathQuestionService service;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
     }
+
     // НЕ РАБОТАЕТ
     public void addTest() {
         Question question0 = new Question("Вопрос 0", "Ответ 0");
@@ -72,7 +75,7 @@ public class MathQuestionServiceTest {
         Question question = service.getRandomQuestion();
         Assertions.assertTrue(service.getAll().contains(question));
         Set<Question> questions = new HashSet<>();
-        while (questions.size()<service.getAll().size()){
+        while (questions.size() < service.getAll().size()) {
             questions.add(service.getRandomQuestion());
         }
         Assertions.assertTrue(questions.containsAll(service.getAll()));

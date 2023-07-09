@@ -4,6 +4,7 @@ import com.example.coursework2.examinerService.demain.Question;
 import com.example.coursework2.examinerService.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 
 @Qualifier("mathService")

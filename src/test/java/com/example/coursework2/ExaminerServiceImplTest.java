@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -34,10 +33,10 @@ public class ExaminerServiceImplTest {
         Question question2 = new Question("Вопрос 2", "Ответ 2");
         Question question3 = new Question("1+1", "=2");
         Collection<Question> testJavaQuestions = List.of(question1, question2, question3);
-        Collection<Question> testMathQuestions = List.of( question3);
+        Collection<Question> testMathQuestions = List.of(question3);
 
-        when(javaService.getAll()).thenReturn( testJavaQuestions);
-        when(mathService.getAll()).thenReturn( testMathQuestions);
+        when(javaService.getAll()).thenReturn(testJavaQuestions);
+        when(mathService.getAll()).thenReturn(testMathQuestions);
 
     }
 

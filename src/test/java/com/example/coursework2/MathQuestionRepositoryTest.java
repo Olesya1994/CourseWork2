@@ -14,8 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
-import static org.mockito.Mockito.when;
-
 @Repository()
 public class MathQuestionRepositoryTest {
     @InjectMocks
